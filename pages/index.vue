@@ -4,7 +4,7 @@
             <b-col cols="7">
                 <b-jumbotron header="SuperPing" lead="Проверка работоспособности вашего сайта" >
                 <p>Регистрируйтесь у нас</p>
-                <b-btn variant="primary" href="/login">Войти</b-btn>
+                <span><b-btn variant="primary" href="/login">Войти</b-btn> или <b-btn variant="link" href="/register">Зарегистрируйтесь</b-btn></span>
                 </b-jumbotron>
             </b-col>
         </b-row>
@@ -15,9 +15,3 @@
 export default {
 }
 </script>
-
-<style>
-.main-toolbar {
-  margin: 1em 0;
-}
-</style>

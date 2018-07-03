@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" variant="info">
+  <b-navbar toggleable="md" type="dark" variant="secondary" class="main-toolbar">
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand href="#">SuperPing</b-navbar-brand>
     <b-collapse is-nav id="nav_text_collapse">
@@ -14,7 +14,7 @@
         </b-nav-item-dropdown>
 
         <b-nav-form right v-if="!user">
-          <b-button variant="primary" size="sm" href="/login">Войти</b-button>
+          <b-button variant="info" size="sm" href="/login">Войти</b-button>
         </b-nav-form>
 
       </b-navbar-nav>
@@ -32,11 +32,15 @@ export default {
   methods: {
     onLogout() {
       this.$store.dispatch('auth/reset').then(resp => {
-      //  this.$router.push("/")
         this.$router.go({path:'/', force: true})
       })
     }
   }
 }
-
 </script>
+
+<style>
+.main-toolbar {
+  margin-bottom: 1em;
+}
+</style>

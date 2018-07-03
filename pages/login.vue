@@ -12,7 +12,7 @@
             <b-col sm="4">
                 <b-alert variant="danger" :show="!!alert">{{ !!alert ? alert.message:'' }}</b-alert>
                 <b-form-group>
-                    <b-form-input placeholder="e-mail" required v-model="email">
+                    <b-form-input placeholder="e-mail" ref="email" required v-model="email">
                     </b-form-input>
                 </b-form-group>
                 <b-form-group >
@@ -39,6 +39,9 @@ export default {
       loading: false
     };
   },
+  mounted(){
+    this.$refs.email.focus()
+  },
   methods: {
     onSubmit(evt) {
       this.alert = null
@@ -53,8 +56,6 @@ export default {
           this.alert = { type: "success", message: result.data.message };
           this.loading = false;
           this.$router.push("/main");
-          console.log('login');
-          
         })
         .catch(error => {
           this.loading = false;

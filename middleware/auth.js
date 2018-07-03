@@ -4,10 +4,13 @@ export default function ({store, redirect, route}) {
     
     if (route.path == '/')
     {
+      if (userIsLoggedIn)
+        return redirect('/main')
+
       return Promise.resolve()  
     }
 
-    if (!userIsLoggedIn ) {
+    if (!userIsLoggedIn && route.path != '/register') {
       return redirect('/login')
     }
 
