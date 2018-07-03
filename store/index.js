@@ -10,6 +10,7 @@ export const actions = {
         app.$axios.defaults.headers.common['x-access-token'] = cookies['x-access-token']
         dispatch('auth/fetch', app)
           .then(result => {
+            cookies.set('x-access-token', response.data.token, {expires: 7})
             resolve(true)
           })
           .catch(error => {

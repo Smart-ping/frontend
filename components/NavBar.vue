@@ -1,19 +1,22 @@
 <template>
-  <b-navbar toggleable="md" type="light" variant="light">
+  <b-navbar toggleable="md" type="dark" variant="info">
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
     <b-navbar-brand href="#">SuperPing</b-navbar-brand>
     <b-collapse is-nav id="nav_text_collapse">
-      <b-navbar-nav>
-        <b-nav-item to="/">Проверки</b-nav-item>
-      </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
+
+        <b-nav-item-dropdown right v-if="user">
           <template slot="button-content">
             {{ user }}
           </template>
           <b-dropdown-item href="#">Профиль</b-dropdown-item>
           <b-dropdown-item v-on:click="onLogout" >Выйти</b-dropdown-item>   
         </b-nav-item-dropdown>
+
+        <b-nav-form right v-if="!user">
+          <b-button variant="primary" size="sm" href="/login">Войти</b-button>
+        </b-nav-form>
+
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
