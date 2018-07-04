@@ -86,6 +86,25 @@ export default {
         onSubmit(evt)
         {
             evt.preventDefault()
+            this.$store
+            .dispatch("auth/register", {
+                email: this.form.email,
+                password: this.form.password1
+            })
+            .then(result => {
+                this.alert = { type: "success", message: result.data.message };
+                this.loading = false;
+                this.$router.push("/main");
+            })
+            .catch(error => {
+                this.loading = false;
+                if (error.response && error.response.data) {
+                    this.alert = {
+                    type: "error",
+                    message: error.response.data.message || error.response.status
+                    }
+                }
+            })
         },
         isNoValidEmail() {
             return (this.form.email === '') || !validator.validate(this.form.email) 

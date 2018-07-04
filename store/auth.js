@@ -29,7 +29,14 @@ export const actions = {
         return api.auth.login($nuxt.$axios, data)
             .then(response => {
                 commit('set_user', response.data.user)
-//                $nuxt.$axios.defaults.headers.common['x-access-token'] = cookies.get('x-access-token')
+                cookies.set('x-access-token', response.data.token, { expires: 7 })
+                return response
+            })
+    },
+    register({ commit },  data) {
+        return api.auth.register($nuxt.$axios, data)
+            .then(response => {
+                commit('set_user', response.data.user)
                 cookies.set('x-access-token', response.data.token, { expires: 7 })
                 return response
             })

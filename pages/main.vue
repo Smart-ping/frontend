@@ -14,7 +14,6 @@
   </b-row>
   <b-row>
     <b-col>
-      
         <b-card v-for="check in checks" :key="check.id">
         {{ check.url }} 
         </b-card>
@@ -23,11 +22,6 @@
 </b-container>
 </template>
 
-<style>
-.main-toolbar {
-  margin: 1em 0;
-}
-</style>
 <script>
 import CreateCheckDlg from "~/components/CreateCheckDlg";
 
