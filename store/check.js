@@ -36,6 +36,5 @@ export const actions = {
                 commit('reset_checks')
                 return error
             })
-    },
-
+    }
 }
