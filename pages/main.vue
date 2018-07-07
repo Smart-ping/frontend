@@ -15,7 +15,15 @@
   <b-row>
     <b-col sm="4">
       <b-list-group>
-        <b-list-group-item v-for="check in checks" :key="check.id" @click="onSelectItem(check.id)" :active="selected === check.id">{{check.url}}</b-list-group-item>
+        <b-list-group-item 
+          v-for="check in checks" 
+          :key="check.id" 
+          @click="onSelectItem(check.id)" 
+          :active="selected === check.id">
+            <i class="fa fa-arrow-circle-o-up" v-if="check.online"></i>
+            <i class="fa fa-arrow-circle-o-down" v-else></i>
+            &nbsp;{{check.title}}
+        </b-list-group-item>
       </b-list-group>
     </b-col>
     <b-col sm="8">
@@ -75,3 +83,14 @@ export default {
   }
 };
 </script>
+
+<style>
+  .fa-arrow-circle-o-down {
+    color: #FF0033;
+    font-size:1.2em    
+  }
+  .fa-arrow-circle-o-up {
+    color: #28a745;
+    font-size:1.2em
+  }
+</style>

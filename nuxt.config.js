@@ -18,7 +18,8 @@ module.exports = {
   },
   modules: [
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/font-awesome'
   ],
   axios: {
      proxy: true

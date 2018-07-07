@@ -3,7 +3,7 @@
         <b-row>
             <b-form inline>
                 <b-col>
-                    <b-form-select v-model="interval" :options="options" >
+                    <b-form-select v-model="interval" >
                         <option value="1">Последние сутки</option>
                         <option value="2">Последняя неделя</option>
                         <option value="3">Последний месяц</option>
@@ -18,7 +18,8 @@
         </b-row>
         <b-row>
             <b-col>
-                <h1>{{ check ? check.url: '' }}</h1>
+                <h1 class="title">{{ check ? check.title: '' }}</h1>
+                <h2>{{check ? check.url: ''}}</h2>
                 <p>Проверяем каждые {{check ? check.interval : "" }} минут.</p>
                 <p>Сейчас сервис {{check ? (check.online ? "работает" : "не работает") : ""}}</p>
             </b-col>
@@ -53,3 +54,10 @@ export default {
     }
 }
 </script>
+
+<style>
+h1.title {
+    margin-top: 0.3em; 
+}
+</style>
+
