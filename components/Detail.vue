@@ -4,11 +4,11 @@
             <b-form inline>
                 <b-col>
                     <b-form-select v-model="interval" >
-                        <option value="1">Последние сутки</option>
-                        <option value="2">Последняя неделя</option>
-                        <option value="3">Последний месяц</option>
-                        <option value="4">Последние полгода</option>
-                        <option value="5">Последний год</option>
+                        <option value="day">Последние сутки</option>
+                        <option value="week">Последняя неделя</option>
+                        <option value="month">Последний месяц</option>
+                        <option value="halfyear">Последние полгода</option>
+                        <option value="year">Последний год</option>
                     </b-form-select>
                 </b-col>
                 <b-col>
@@ -29,9 +29,9 @@
                 <b-card no-body>
                     <b-tabs card>
                         <b-tab title="Проверки" active>
-                            <br>Проверки
+                            <EventDetail :checkId="checkId"></EventDetail>
                         </b-tab>
-                        <b-tab title="События" active>
+                        <b-tab title="События">
                             <br>События
                         </b-tab>
                     </b-tabs>
@@ -41,16 +41,27 @@
     </b-container>
 </template>
 <script>
+
+import EventDetail from '~/components/EventDetail'
+
 export default {
+
     props: {
         check: Object
     },
     data() {
         return {
-            interval: "1"
+            interval: "day"
         }
     },
-    methods: {
+    computed: {
+        checkId() {
+            console.log('check:', this.check)
+            return this.check ? this.check.id : null
+        }
+    },
+    components: {
+        EventDetail
     }
 }
 </script>

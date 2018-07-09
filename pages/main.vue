@@ -57,7 +57,7 @@ export default {
   },
   mounted() {
     if (this.$store.state.check.checks && this.$store.state.check.checks[0])
-    this.selected = this.$store.state.check.checks[0].id
+      this.selected = this.$store.state.check.checks[0].id
   },
   methods: {
     onOk(info) {

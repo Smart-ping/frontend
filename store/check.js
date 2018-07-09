@@ -1,7 +1,8 @@
 import api from '~/api'
 
 export const state = () => ({
-    checks: null
+    checks: null,
+    events: null
 })
 
 export const mutations = {
@@ -10,6 +11,12 @@ export const mutations = {
     },
     reset_checks(store) {
         store.checks = null
+    },
+    set_log(store, data) {
+        store.event = data
+    },
+    reset_log(store) {
+        store.event = null
     }
 }
 
@@ -29,11 +36,21 @@ export const actions = {
     create({ commit }, data ) {
         return api.checks.create(this.$axios, data)
             .then(response => {
-        //        commit('set_checks', response.data.result)
                 return response
             })
             .catch(error => {
-                commit('reset_checks')
+                return error
+            })
+    },
+    log({ commit }, data ) {
+        return api.checks.log(this.$axios, data)
+            .then(response => {
+                if (response.data.type == 'success')
+                    commit('set_log', response.data.events)
+                return response
+            })
+            .catch(error => {
+                commit('reset_log')
                 return error
             })
     }
