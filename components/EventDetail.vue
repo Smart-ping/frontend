@@ -3,8 +3,6 @@
         <b-row>
             <b-col>
                 <b-table 
-                    striped
-                    hover
                     small
                     :fields="fields" 
                     :items="getItems"
@@ -44,7 +42,17 @@ export default {
         checkId: String
     },
     watch: {
-        checkId(o, n) {
+        async checkId(o, n) {
+
+            const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
+                params: {
+                    onlycount: true
+                }
+            })
+
+            if (res.data.type = 'success')
+                this.totalRows = res.data.count
+
             if (o != n)
                this.$refs.eventTable.refresh()
         }
@@ -53,7 +61,7 @@ export default {
         return {
             perPage: 10,
             currentPage: 1,
-            totalRows: 100,
+            totalRows: 0,
             pageOptions: [10, 20, 50, 100],
             fields: [ 
                 { key: 'date', label: "Время проверки" },
