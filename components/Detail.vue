@@ -1,21 +1,23 @@
 <template>
     <b-container>
-        <b-row>
-            <b-form inline>
-                <b-col>
-                    <b-form-select v-model="interval" >
-                        <option value="day">Последние сутки</option>
-                        <option value="week">Последняя неделя</option>
-                        <option value="month">Последний месяц</option>
-                        <option value="halfyear">Последние полгода</option>
-                        <option value="year">Последний год</option>
+        <b-navbar type="light" variant="light">
+            <b-navbar-nav>
+                <b-nav-form>
+                    <b-form-select v-model="interval" class="mr-sm-2" >
+                        <option value="day">Сутки</option>
+                        <option value="week">Неделя</option>
+                        <option value="month">Месяц</option>
+                        <option value="halfyear">6 месяцев</option>
+                        <option value="year">Год</option>
                     </b-form-select>
-                </b-col>
-                <b-col>
-                   <b-button variant="success">Показать</b-button>
-                </b-col>
-            </b-form>
-        </b-row>
+                    <b-button variant="secondary">Показать</b-button>
+                </b-nav-form>
+            </b-navbar-nav>
+            <b-navbar-nav right>
+                <b-button variant="secondary">Удалить</b-button>
+            </b-navbar-nav>
+        </b-navbar>
+        <b-container>
         <b-row>
             <b-col>
                 <h1 class="title">{{ check ? check.title: '' }}</h1>
@@ -38,6 +40,7 @@
                 </b-card>
             </b-col>
         </b-row>
+        </b-container>
     </b-container>
 </template>
 <script>

@@ -8,12 +8,12 @@
   <b-row>
     <b-col>
       <b-button-toolbar class="main-toolbar">
-        <b-btn v-b-modal.create-check-dlg>Новая проверка</b-btn>
+        <b-btn v-b-modal.create-check-dlg variant="success">Новая проверка</b-btn>
       </b-button-toolbar>
     </b-col>
   </b-row>
   <b-row>
-    <b-col sm="4">
+    <b-col sm="3">
       <b-list-group>
         <b-list-group-item 
           v-for="check in checks" 
@@ -26,7 +26,7 @@
         </b-list-group-item>
       </b-list-group>
     </b-col>
-    <b-col sm="8">
+    <b-col sm="9">
       <Detail :check="selectedCheck"></Detail> 
     </b-col>
   </b-row>
