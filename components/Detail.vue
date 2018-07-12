@@ -1,5 +1,5 @@
 <template>
-    <b-container>
+    <div>
         <b-navbar type="light" variant="light">
             <b-navbar-nav>
                 <b-nav-form>
@@ -41,7 +41,7 @@
             </b-col>
         </b-row>
         </b-container>
-    </b-container>
+    </div>
 </template>
 <script>
 
