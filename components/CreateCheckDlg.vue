@@ -13,7 +13,7 @@
                         ref="title"
                         v-bind:class="{ 'is-invalid' : !validTitle() }">
           </b-form-input>
-          <b-form-invalid-feedback id="urlInputFeedback">Нужно имя проверки или введите url</b-form-invalid-feedback>
+          <b-form-invalid-feedback id="urlInputFeedback">Название проверки</b-form-invalid-feedback>
         </b-form-group>
       </b-col>
     </b-form-row>
