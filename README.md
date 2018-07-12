@@ -1,22 +1,11 @@
-# rck-front
+# Запуск
 
-> Front for rck
+Собираем в обычном режиме (не статическом).
+```nuxt generate```
+После сборки все файлы будут лежать в dist. Для запуска нужен только он.
+Запускаем
+```nuxt start```
+Nuxt запускает сервер на порту 3000 если надо перевесить то экспортируем HOST и PORT
 
-## Build Setup
-
-``` bash
-# install dependencies
-$ npm install # Or yarn install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+Например
+```HOST=0.0.0.0 PORT=1890 nuxt start```
