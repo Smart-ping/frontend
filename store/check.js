@@ -12,6 +12,11 @@ export const mutations = {
     reset_checks(store) {
         store.checks = null
     },
+    remove_checks(store, data) {
+        const idx = store.checks.findIndex(item => (item.id === data.id))
+        if (idx >= 0)
+            store.checks.splice(idx, 1)
+    },
     set_log(store, data) {
         store.event = data
     },
@@ -53,5 +58,20 @@ export const actions = {
                 commit('reset_log')
                 return error
             })
-    }
+    },
+    delete({ commit }, data ) {
+        return api.checks.delete(this.$axios, data)
+            .then(response => {
+
+                if (response.data.type == 'success')
+                commit('remove_checks', data)
+
+                return response
+            })
+            .catch(error => {
+                return error
+            })
+    },
+
+
 }

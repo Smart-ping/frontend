@@ -3,11 +3,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'SuperPing - лучшее решение для мониторинга вашего сайта',
+    title: 'SmartPing - лучшее решение для мониторинга вашего сайта',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Front for rck' }
+      { hid: 'description', name: 'description', content: 'SmartPing решение для монитринга вашего сайта' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

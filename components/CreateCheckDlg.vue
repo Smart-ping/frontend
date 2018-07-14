@@ -1,13 +1,12 @@
 <template>
-<b-row>
-  <b-modal :id=name centered :title=title @ok=onOk @cancel="onCancel" @show="onShow" >
+  <b-modal :id=name centered :title=title @ok=onOk @cancel=onCancel @show=onShow  >  
   
     <b-form-row>
       <b-col>
         <b-form-group id="titleInputGroup"
                     label="Название"
                     label-for="titleInput">
-          <b-form-input id="titleInput"
+          <b-form-input id="titleInput" 
                         type="text"
                         v-model="form.title"
                         ref="title"
@@ -35,7 +34,6 @@
       </b-col>
     </b-form-row>
     
-    
     <b-form-row>
       <b-col>
         <b-form-group id="intervalInputGroup"
@@ -53,7 +51,6 @@
     </b-form-row>
 
   </b-modal>
-</b-row>
 </template>
 
 <script>

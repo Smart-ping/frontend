@@ -6,28 +6,34 @@
   @onOk="onOk">
 </CreateCheckDlg>
   <b-row>
-    <b-col>
-      <b-button-toolbar class="main-toolbar">
-        <b-btn v-b-modal.create-check-dlg variant="success">Новая проверка</b-btn>
-      </b-button-toolbar>
-    </b-col>
-  </b-row>
-  <b-row>
     <b-col sm="3">
-      <b-list-group>
-        <b-list-group-item 
-          v-for="check in checks" 
-          :key="check.id" 
-          @click="onSelectItem(check.id)" 
-          :active="selected === check.id">
-            <i class="fa fa-arrow-circle-o-up" v-if="check.online"></i>
-            <i class="fa fa-arrow-circle-o-down" v-else></i>
-            &nbsp;{{check.title}}
-        </b-list-group-item>
-      </b-list-group>
+      <b-container fluid>
+        <b-row>
+          <b-col>
+            <b-button-toolbar class="main-toolbar">
+              <b-btn v-b-modal.create-check-dlg variant="success">Новая проверка</b-btn>
+            </b-button-toolbar>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-list-group>
+              <b-list-group-item 
+                v-for="check in checks" 
+                :key="check.id" 
+                @click="onSelectItem(check.id)" 
+                :active="selected === check.id">
+                  <i class="fa fa-arrow-circle-o-up" v-if="check.online"></i>
+                  <i class="fa fa-arrow-circle-o-down" v-else></i>
+                  &nbsp;{{check.title}}
+              </b-list-group-item>
+            </b-list-group>
+            </b-col>
+        </b-row>
+      </b-container>
     </b-col>
     <b-col sm="9">
-      <Detail :check="selectedCheck"></Detail> 
+      <Detail :check="selectedCheck" @onDelete="onDelete"></Detail> 
     </b-col>
   </b-row>
 </b-container>
@@ -75,6 +81,20 @@ export default {
     },
     onSelectItem(id) {
         this.selected = id
+    },
+    onDelete(id) {
+      if (id == null)
+        return
+      const idx = this.$store.state.check.checks.findIndex(item => (item.id == this.selected))
+      this.$loading = true
+      this.$store.dispatch('check/delete', { id: id }).then(res => {
+          this.$loading = false
+          this.selected = this.$store.state.check.checks[Math.max(idx-1,0)].id
+      }).catch (err => {
+          this.$loading = false
+          console.log(err)
+      })
+
     }
   },
   components: {

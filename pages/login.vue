@@ -4,7 +4,7 @@
         <b-row>
             <b-col sm="4"></b-col>
             <b-col sm="4">
-                <h1>SuperPing вход</h1>
+                <h1>SmartPing вход</h1>
             </b-col>
         </b-row>
         <b-row>
