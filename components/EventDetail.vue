@@ -37,25 +37,22 @@
 </template>
 <script>
 
+import moment from 'moment'
+
 export default {
     props: {
-        checkId: String
+        checkId: String,
+        interval: String
     },
     watch: {
         async checkId(o, n) {
-
-            const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
-                params: {
-                    onlycount: true
-                }
-            })
-
-            if (res.data.type = 'success')
-                this.totalRows = res.data.count
-
             if (o != n)
-               this.$refs.eventTable.refresh()
-        }
+                await this.setupRecCount()
+        },
+        async interval (o, n) {
+            if (o != n)
+                await this.setupRecCount()
+        },
     },
     data() {
         return {
@@ -77,14 +74,52 @@ export default {
             if (this.checkId == null)
                 return []
 
+            const from = this.calcInterval(this.interval)
+
             return this.$axios.get(`/data/checks/log/${this.checkId}`,{
                 params: {
                     offset: (context.currentPage - 1) * context.perPage,
-                    limit: context.perPage
+                    limit: context.perPage,
+                    to: new Date(),
+                    from: from
                 }
             }).then( res => {
                 return res.data.log || []
             })
+        },
+
+        calcInterval( interval, _to ) {    // Пересчитываем to от from или от текущего момента. 
+            const to = _to ? _to : new Date()
+
+            switch (interval) {
+                case 'day':
+                    return moment(to).subtract('1','days').toDate()
+                case 'week':
+                    return moment(to).subtract('7','days').toDate()
+                case 'month':
+                    return moment(to).subtract('1','months').toDate()
+                case 'halfyear':
+                    return moment(to).subtract('6','months').toDate()
+                case 'year':
+                    return moment(to).subtract('1','year').toDate()
+                }
+        },
+        async setupRecCount() {
+            const from = this.calcInterval(this.interval)
+            
+            const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
+                params: {
+                    onlycount: true,
+                    to: new Date(),
+                    from: from
+                }
+            })
+
+            if (res.data.type = 'success')
+                this.totalRows = res.data.count
+            
+            if (this.$refs.eventTable)
+                this.$refs.eventTable.refresh()
         }
     }
 }

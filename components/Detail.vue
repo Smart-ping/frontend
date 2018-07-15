@@ -20,7 +20,6 @@
                         <option value="halfyear">6 месяцев</option>
                         <option value="year">Год</option>
                     </b-form-select>
-                    <b-button variant="secondary">Показать</b-button>
                 </b-nav-form>
             </b-navbar-nav>
             <b-navbar-nav right>
@@ -41,7 +40,7 @@
                 <b-card no-body>
                     <b-tabs card>
                         <b-tab title="Проверки" active>
-                            <EventDetail :checkId="checkId"></EventDetail>
+                            <EventDetail :checkId="checkId" :interval="interval"></EventDetail>
                         </b-tab>
                         <b-tab title="События">
                             <br>События
