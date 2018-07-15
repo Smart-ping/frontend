@@ -31,8 +31,8 @@
             <b-col>
                 <h1 class="title">{{ check ? check.title: '' }}</h1>
                 <h2>{{check ? check.url: ''}}</h2>
-                <p>Проверяем каждые {{check ? check.interval : "" }} минут.</p>
-                <p>Сейчас сервис {{check ? (check.online ? "работает" : "не работает") : ""}}</p>
+                <p>Проверяем каждые: {{check ? check.interval : "" }} минут.</p>
+                <p>Сейчас сервис: <span class="text-success" v-if="check.online">работает</span> <span class="text-danger" v-else>не работает</span></p>
             </b-col>
         </b-row>
         <b-row>
