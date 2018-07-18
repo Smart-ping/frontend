@@ -38,6 +38,7 @@
 <script>
 
 import moment from 'moment'
+import { calcInterval } from '~/utils/period'
 
 export default {
     props: {
@@ -74,7 +75,7 @@ export default {
             if (this.checkId == null)
                 return []
 
-            const from = this.calcInterval(this.interval)
+            const from = calcInterval(this.interval)
 
             return this.$axios.get(`/data/checks/log/${this.checkId}`,{
                 params: {
@@ -87,25 +88,8 @@ export default {
                 return res.data.log || []
             })
         },
-
-        calcInterval( interval, _to ) {    // Пересчитываем to от from или от текущего момента. 
-            const to = _to ? _to : new Date()
-
-            switch (interval) {
-                case 'day':
-                    return moment(to).subtract('1','days').toDate()
-                case 'week':
-                    return moment(to).subtract('7','days').toDate()
-                case 'month':
-                    return moment(to).subtract('1','months').toDate()
-                case 'halfyear':
-                    return moment(to).subtract('6','months').toDate()
-                case 'year':
-                    return moment(to).subtract('1','year').toDate()
-                }
-        },
         async setupRecCount() {
-            const from = this.calcInterval(this.interval)
+            const from = calcInterval(this.interval)
             
             const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
                 params: {

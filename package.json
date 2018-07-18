@@ -16,12 +16,14 @@
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/font-awesome": "^1.0.3",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "chart.js": "^2.7.2",
     "cookie": "^0.3.1",
     "email-validator": "^2.0.4",
     "js-cookie": "^2.2.0",
     "moment": "^2.22.2",
     "nuxt": "^1.0.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "vue-chartjs": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",

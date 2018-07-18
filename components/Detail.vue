@@ -37,6 +37,11 @@
         </b-row>
         <b-row>
             <b-col>
+                <LogCharts :styles="{ height:'150px' }" :checkId="checkId" :interval="interval"></LogCharts>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>
                 <b-card no-body>
                     <b-tabs card>
                         <b-tab title="Проверки" active>
@@ -65,6 +70,7 @@
 <script>
 
 import EventDetail from '~/components/EventDetail'
+import LogCharts from '~/components/LogCharts'
 
 export default {
 
@@ -88,7 +94,8 @@ export default {
         }
     },
     components: {
-        EventDetail
+        EventDetail,
+        LogCharts
     }
 }
 </script>
