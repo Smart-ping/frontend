@@ -2,7 +2,7 @@
     <div>
         <line-chart 
             :chart-data="dataCollection" 
-            :options="getOptions"  
+            :options="getOptions()"  
             :height="200">
         </line-chart>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
 import LineChart from "~/components/LineChart.js";
-import { calcInterval } from "~/utils/period";
+import { calcInterval, intervalToDisplayFormat, intervalToAggregate } from "~/utils/period";
 import moment from "moment";
 
 export default {
@@ -24,43 +24,7 @@ export default {
   },
   data() {
     return {
-      dataCollection: null,
-      getOptions: {
-        animation: {
-          duration: 0
-        },
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [ {
-            type: 'time',
-            time: {
-                unit: 'hour',
-                displayFormats:{
-                    hour: 'H'
-                }
-            }
-          },
-            {
-              gridLines: {
-                display: false
-              }
-            }
-          ],
-          yAxes: [
-            {
-                ticks : {
-                    beginAtZero : true
-                },
-              gridLines: {
-                display: false
-              }
-            }
-          ]
-        },
-        legend: {
-          display: false
-        }
-      }
+      dataCollection: null
     };
   },
   watch: {
@@ -75,6 +39,43 @@ export default {
     this.loadData();
   },
   methods: {
+    getOptions() {
+      return {
+        animation: {
+          duration: 0
+        },
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              type: "time",
+              time: {
+                unit: intervalToAggregate(this.interval),
+                displayFormats: intervalToDisplayFormat(this.interval)
+              }
+            },
+            {
+              gridLines: {
+                display: false
+              }
+            }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        },
+        legend: {
+          display: false
+        }
+      };
+    },
     async loadData() {
       if (!this.interval || !this.checkId) return;
 
@@ -84,37 +85,27 @@ export default {
         params: {
           to: new Date(),
           from: from,
-          aggregate: "hour"
+          aggregate: intervalToAggregate(this.interval)
         }
       });
 
       console.log(res.data.data);
 
-         var data = [];
-      var labels = [];
-   /*   for (var i = moment(from); i < moment(); i = i.add(1, "hour")) {
-        const hour = i.hour();
-        labels.push(hour);
+      var data = [];
 
-        const item = res.data.data.find(el => el._id.hour == hour); // Это сложно но чтото быстрее я не могу щас придумать
-
-        if (item) {
-          data.push(Math.round(item.avg));
-        } else {
-          data.push(0);
-        }
-      }
-*/
-
-    res.data.data.forEach(element => {
+      res.data.data.forEach(element => {
         data.push({
-            t: new Date(element._id.year, element._id.month, element._id.day, element._id.hour),
-            y: Math.round(element.avg)
-        })
-    });
+          t: new Date(
+            element._id.year ? element._id.year : 0,
+            element._id.month ? element._id.month : 0,
+            element._id.day ? element._id.day : 0,
+            element._id.hour ? element._id.hour : 0
+          ),
+          y: Math.round(element.avg)
+        });
+      });
 
       this.dataCollection = {
-    //    labels: labels,
         datasets: [
           {
             label: "Среднее время запроса",
@@ -129,9 +120,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-.data-chart {
-  height: 200px;
-}
-</style>
 

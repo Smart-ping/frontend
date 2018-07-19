@@ -19,7 +19,6 @@
                     <template slot="downloadSize" slot-scope="data">
                         {{ data.item.downloadSize == 0 ? "&nbsp;" : data.item.downloadSize + ' байт' }}
                     </template>
-
                 </b-table>        
             </b-col>
         </b-row>
