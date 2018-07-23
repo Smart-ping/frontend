@@ -1,7 +1,4 @@
 module.exports = {
-  /*
-  ** Headers of the page
-  */
   head: {
     title: 'SmartPing - лучшее решение для мониторинга вашего сайта',
     meta: [
@@ -25,8 +22,8 @@ module.exports = {
      proxy: true
   },
   proxy: {
-    '/auth': 'http://localhost:8080',
-    '/data': 'http://localhost:8080'
+    '/auth': process.env.API_AUTH_URL || 'http://localhost:8080',
+    '/data': process.env.API_DATA_URL || 'http://localhost:8080'
   },
   devtool: 'source-map',
   build: {
