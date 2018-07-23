@@ -2,8 +2,9 @@
     <div>
         <line-chart 
             :chart-data="dataCollection" 
-            :options="getOptions()"  
-            :height="200">
+            :options="getOptions"
+            :height="200"
+            ref="chart">
         </line-chart>
     </div>
 </template>
@@ -29,36 +30,45 @@ export default {
   },
   watch: {
     checkId(n, o) {
-      this.loadData();
+      this.loadData()
     },
     interval(n, o) {
-      this.loadData();
+  //    this.$refs.chart._data._chart.chart.labels = []
+      this.loadData()
+      // this.$refs.chart._data._chart.chart.scales['x-axis-0'].buildTicks()
+      // console.log(this.$refs.chart._data._chart.chart)
     }
   },
-  mounted() {
-    this.loadData();
-  },
-  methods: {
+  computed: {
     getOptions() {
-      return {
+
+      console.log('getOptions',intervalToAggregate(this.interval), intervalToDisplayFormat(this.interval), this.interval)
+      const dat = {
         animation: {
           duration: 0
         },
+        responsive: true,
         maintainAspectRatio: false,
         scales: {
           xAxes: [
             {
               type: "time",
               time: {
+                round: intervalToAggregate(this.interval), 
                 unit: intervalToAggregate(this.interval),
-                displayFormats: intervalToDisplayFormat(this.interval)
-              }
-            },
-            {
+                displayFormats: intervalToDisplayFormat(this.interval),
+                min: calcInterval(this.interval),
+                max: new Date()
+              },
               gridLines: {
                 display: false
-              }
-            }
+              },
+              // ticks: {
+              //   callback(val) {
+              //       console.log('tick:', val)
+              //   }
+              // }
+            },          
           ],
           yAxes: [
             {
@@ -74,8 +84,17 @@ export default {
         legend: {
           display: false
         }
-      };
-    },
+      }
+    
+    console.log('dat:', dat)
+  
+    return dat
+    }
+  },
+  mounted() {
+    this.loadData();
+  },
+  methods: {
     async loadData() {
       if (!this.interval || !this.checkId) return;
 
@@ -89,15 +108,13 @@ export default {
         }
       });
 
-      console.log(res.data.data);
-
       var data = [];
 
       res.data.data.forEach(element => {
         data.push({
           t: new Date(
             element._id.year ? element._id.year : 0,
-            element._id.month ? element._id.month : 0,
+            element._id.month ? (element._id.month - 1) : 0,
             element._id.day ? element._id.day : 0,
             element._id.hour ? element._id.hour : 0
           ),
@@ -105,17 +122,19 @@ export default {
         });
       });
 
+      console.log(data)
+
       this.dataCollection = {
         datasets: [
           {
             label: "Среднее время запроса",
             backgroundColor: "#59ba83",
             data: data,
-            lineTension: 0.3,
+            lineTension: 0.2,
             fill: false
           }
         ]
-      };
+      }
     }
   }
 };
