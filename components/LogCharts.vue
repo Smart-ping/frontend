@@ -112,11 +112,12 @@ export default {
 
       res.data.data.forEach(element => {
         data.push({
-          t: new Date(
+          t: Date.UTC(
             element._id.year ? element._id.year : 0,
             element._id.month ? (element._id.month - 1) : 0,
             element._id.day ? element._id.day : 0,
             element._id.hour ? element._id.hour : 0
+            
           ),
           y: Math.round(element.avg)
         });
