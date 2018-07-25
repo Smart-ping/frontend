@@ -1,8 +1,9 @@
 <template>
-    <b-container>
+    <div>
         <b-row>
             <b-col>
                 <b-table 
+                    striped
                     small
                     :fields="fields" 
                     :items="getItems"
@@ -32,7 +33,7 @@
                 </b-form-group>
             </b-col>
         </b-row>
-    </b-container>
+    </div>
 </template>
 <script>
 
