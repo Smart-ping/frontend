@@ -36,7 +36,7 @@
         </b-row>
         <b-row>
             <b-col>
-                <LogCharts :checkId="checkId" :interval="interval"></LogCharts>
+                <LogCharts :checkId="checkId" :interval="interval" :height="200"></LogCharts>
             </b-col>
         </b-row>
         <b-row>

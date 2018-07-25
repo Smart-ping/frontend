@@ -1,49 +1,38 @@
-<template>
-    <div>
-        <line-chart 
-            :chart-data="dataCollection" 
-            :options="getOptions"
-            :height="200"
-            ref="chart">
-        </line-chart>
-    </div>
-</template>
-
-
 <script>
-import LineChart from "~/components/LineChart.js";
-import { calcInterval, intervalToDisplayFormat, intervalToAggregate } from "~/utils/period";
-import moment from "moment";
+import VueCharts from "vue-chartjs";
+import { Bar, Line } from "vue-chartjs";
+import {
+  calcInterval,
+  intervalToAggregate,
+  intervalToDisplayFormat
+} from "~/utils/period";
 
 export default {
-  components: {
-    LineChart
-  },
+  extends: Line,
   props: {
     checkId: String,
     interval: String
   },
-  data() {
-    return {
-      dataCollection: null
-    };
-  },
   watch: {
-    checkId(n, o) {
-      this.loadData()
+    async checkId(n, o) {
+      try {
+        this.renderChart(await this.getData(), this.getOptions());
+      } catch (e) {}
     },
-    interval(n, o) {
-  //    this.$refs.chart._data._chart.chart.labels = []
-      this.loadData()
-      // this.$refs.chart._data._chart.chart.scales['x-axis-0'].buildTicks()
-      // console.log(this.$refs.chart._data._chart.chart)
+    async interval(n, o) {
+      try {
+        this.renderChart(await this.getData(), this.getOptions());
+      } catch (e) {}
     }
   },
-  computed: {
+  async mounted() {
+    try {
+      this.renderChart(await this.getData(), this.getOptions());
+    } catch (e) {}
+  },
+  methods: {
     getOptions() {
-
-      console.log('getOptions',intervalToAggregate(this.interval), intervalToDisplayFormat(this.interval), this.interval)
-      const dat = {
+      return {
         animation: {
           duration: 0
         },
@@ -54,7 +43,7 @@ export default {
             {
               type: "time",
               time: {
-                round: intervalToAggregate(this.interval), 
+                round: intervalToAggregate(this.interval),
                 unit: intervalToAggregate(this.interval),
                 displayFormats: intervalToDisplayFormat(this.interval),
                 min: calcInterval(this.interval),
@@ -62,13 +51,13 @@ export default {
               },
               gridLines: {
                 display: false
-              },
+              }
               // ticks: {
               //   callback(val) {
               //       console.log('tick:', val)
               //   }
               // }
-            },          
+            }
           ],
           yAxes: [
             {
@@ -84,18 +73,9 @@ export default {
         legend: {
           display: false
         }
-      }
-    
-    console.log('dat:', dat)
-  
-    return dat
-    }
-  },
-  mounted() {
-    this.loadData();
-  },
-  methods: {
-    async loadData() {
+      };
+    },
+    async getData() {
       if (!this.interval || !this.checkId) return;
 
       const from = calcInterval(this.interval);
@@ -112,20 +92,21 @@ export default {
 
       res.data.data.forEach(element => {
         data.push({
-          t: Date.UTC(
-            element._id.year ? element._id.year : 0,
-            element._id.month ? (element._id.month - 1) : 0,
-            element._id.day ? element._id.day : 0,
-            element._id.hour ? element._id.hour : 0
-            
+          t: new Date(
+            Date.UTC(
+              element._id.year ? element._id.year : 0,
+              element._id.month ? element._id.month - 1 : 0,
+              element._id.day ? element._id.day : 0,
+              element._id.hour ? element._id.hour : 0
+            )
           ),
           y: Math.round(element.avg)
         });
       });
 
-      console.log(data)
+      console.log(data);
 
-      this.dataCollection = {
+      return {
         datasets: [
           {
             label: "Среднее время запроса",
@@ -135,7 +116,7 @@ export default {
             fill: false
           }
         ]
-      }
+      };
     }
   }
 };
