@@ -45,8 +45,8 @@ export function intervalToDisplayFormat(interval)
         case 'month':
             return { day: 'D'}
         case 'halfyear':
-            return { week: 'w'}
+            return { month: 'M'}
         case 'year':
-            return { week: 'w'}
+            return { month: 'MM'}
     }
 }

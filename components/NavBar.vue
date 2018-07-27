@@ -38,9 +38,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.main-toolbar {
-  margin-bottom: 1em;
-}
-</style>

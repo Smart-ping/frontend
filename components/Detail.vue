@@ -10,7 +10,7 @@
             <p>Удалить безвозвратно проверку и все ее данные ?</p>
         </b-modal>
 
-        <b-navbar type="light" variant="light">
+        <b-navbar type="light" variant="light" class="mt-2">
             <b-navbar-nav>
                 <b-nav-form>
                     <b-form-select v-model="interval" class="mr-sm-2" >
@@ -26,7 +26,6 @@
                 <b-button variant="secondary" v-b-modal.delete-modal>Удалить</b-button>
             </b-navbar-nav>
         </b-navbar>
-        <b-container>
         <b-row>
             <b-col>
                 <h1 class="title">{{ check ? check.title: '' }}</h1>
@@ -37,24 +36,23 @@
         </b-row>
         <b-row>
             <b-col>
-                <LogCharts :checkId="checkId" :interval="interval"></LogCharts>
+                <LogCharts :checkId="checkId" :interval="interval" :height="200"></LogCharts>
             </b-col>
         </b-row>
         <b-row>
             <b-col>
-                <b-card no-body>
-                    <b-tabs card>
+                <!-- <b-card no-body> -->
+                    <b-tabs class="mt-2">
                         <b-tab title="Проверки" active>
-                            <EventDetail :checkId="checkId" :interval="interval"></EventDetail>
+                            <EventDetail :checkId="checkId" :interval="interval" class="mt-4"></EventDetail>
                         </b-tab>
                         <b-tab title="События">
                             <br>События
                         </b-tab>
                     </b-tabs>
-                </b-card>
+                <!-- </b-card> -->
             </b-col>
         </b-row>
-        </b-container>
     </div>
     <div v-else>
         <b-container fluid >

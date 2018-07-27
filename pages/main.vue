@@ -7,11 +7,10 @@
 </CreateCheckDlg>
   <b-row>
     <b-col sm="3">
-      <b-container fluid>
         <b-row>
           <b-col>
             <b-button-toolbar class="main-toolbar">
-              <b-btn v-b-modal.create-check-dlg variant="success">Новая проверка</b-btn>
+              <b-btn v-b-modal.create-check-dlg variant="success" class="mt-3 mb-3">Новая проверка</b-btn>
             </b-button-toolbar>
           </b-col>
         </b-row>
@@ -30,7 +29,6 @@
             </b-list-group>
             </b-col>
         </b-row>
-      </b-container>
     </b-col>
     <b-col sm="9">
       <Detail :check="selectedCheck" @onDelete="onDelete"></Detail> 
