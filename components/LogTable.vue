@@ -8,7 +8,8 @@
                     :fields="fields" 
                     :items="getItems"
                     :current-page="currentPage"
-                    :per-page="perPage">
+                    :per-page="perPage"
+                    ref="logTable">
                     <template slot="date" slot-scope="data">
                         {{ new Date(data.item.date).toLocaleString() }}
                     </template>
@@ -74,32 +75,32 @@ export default {
             if (this.checkId == null)
                 return []
 
-            const from = calcInterval(this.interval)
-
             return this.$axios.get(`/data/checks/log/${this.checkId}`,{
                 params: {
                     offset: (context.currentPage - 1) * context.perPage,
                     limit: context.perPage,
                     to: new Date(),
-                    from: from
+                    from: calcInterval(this.interval)
                 }
             }).then( res => {
                 return res.data.log || []
             })
         },
         async setupRecCount() {
-            const from = calcInterval(this.interval)
-            
+
             const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
                 params: {
                     onlycount: true,
                     to: new Date(),
-                    from: from
+                    from: calcInterval(this.interval)
                 }
             })
 
             if (res.data.type = 'success')
-                this.totalRows = res.data.count            
+                this.totalRows = res.data.count
+
+            if (this.$refs.logTable)    
+                this.$refs.logTable.refresh()
         }
     }
 }
