@@ -8,8 +8,7 @@
                     :fields="fields" 
                     :items="getItems"
                     :current-page="currentPage"
-                    :per-page="perPage"
-                    ref="eventTable">
+                    :per-page="perPage">
                     <template slot="date" slot-scope="data">
                         {{ new Date(data.item.date).toLocaleString() }}
                     </template>
@@ -24,20 +23,20 @@
             </b-col>
         </b-row>
         <b-row>
-            <b-col md="7">
+            <b-col md="9">
             <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
             </b-col>
-            <b-col md="5">
-                <b-form-group horizontal label="Записей" class="mb-0">
-                    <b-form-select :options="pageOptions" v-model="perPage" />
-                </b-form-group>
+            <b-col md="3" text-right>
+                <b-form inline>
+                    <label for="pageOptions">Показывать по:</label>
+                    <b-form-select class="ml-2" id="pageOptions" :options="pageOptions" v-model="perPage" />
+                </b-form>
             </b-col>
         </b-row>
     </div>
 </template>
 <script>
 
-import moment from 'moment'
 import { calcInterval } from '~/utils/period'
 
 export default {
@@ -60,7 +59,7 @@ export default {
             perPage: 10,
             currentPage: 1,
             totalRows: 0,
-            pageOptions: [10, 20, 50, 100],
+            pageOptions: [10, 20, 30, 50, 100],
             fields: [ 
                 { key: 'date', label: "Время проверки" },
                 { key: 'status', label: "Статус" },
@@ -100,10 +99,7 @@ export default {
             })
 
             if (res.data.type = 'success')
-                this.totalRows = res.data.count
-            
-            if (this.$refs.eventTable)
-                this.$refs.eventTable.refresh()
+                this.totalRows = res.data.count            
         }
     }
 }

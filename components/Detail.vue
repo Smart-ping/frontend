@@ -44,7 +44,7 @@
                 <!-- <b-card no-body> -->
                     <b-tabs class="mt-2">
                         <b-tab title="Проверки" active>
-                            <EventDetail :checkId="checkId" :interval="interval" class="mt-4"></EventDetail>
+                            <LogTable :checkId="checkId" :interval="interval" class="mt-4"></LogTable>
                         </b-tab>
                         <b-tab title="События">
                             <br>События
@@ -67,7 +67,7 @@
 </template>
 <script>
 
-import EventDetail from '~/components/EventDetail'
+import LogTable from '~/components/LogTable'
 import LogCharts from '~/components/LogCharts'
 
 export default {
@@ -92,7 +92,7 @@ export default {
         }
     },
     components: {
-        EventDetail,
+        LogTable,
         LogCharts
     }
 }
