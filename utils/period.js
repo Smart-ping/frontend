@@ -24,9 +24,9 @@ export function intervalToAggregate(interval) {
         case 'day':
             return 'hour'
         case 'week':
-            return 'hour'
+            return 'day'
         case 'month':
-            return 'hour'
+            return 'day'
         case 'halfyear':
         case 'year':
             return 'day'
