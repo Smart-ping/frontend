@@ -24,12 +24,12 @@ export function intervalToAggregate(interval) {
         case 'day':
             return 'hour'
         case 'week':
-            return 'day'
+            return 'hour'
         case 'month':
-            return 'day'
+            return 'hour'
         case 'halfyear':
         case 'year':
-            return 'week'
+            return 'day'
             
     }
 }
@@ -39,7 +39,7 @@ export function intervalToDisplayFormat(interval)
     switch(interval)
     {
         case 'day':
-            return { hour: 'H' }
+            return { hour: 'HH:00' }
         case 'week':
             return { day: 'dd' }
         case 'month':
