@@ -41,16 +41,14 @@
         </b-row>
         <b-row>
             <b-col>
-                <!-- <b-card no-body> -->
-                    <b-tabs class="mt-2">
-                        <b-tab title="Проверки" active>
-                            <LogTable :checkId="checkId" :interval="interval" class="mt-4"></LogTable>
-                        </b-tab>
-                        <b-tab title="События">
-                            <br>События
-                        </b-tab>
-                    </b-tabs>
-                <!-- </b-card> -->
+                <b-tabs class="mt-2">
+                    <b-tab title="Проверки" active>
+                        <LogTable :checkId="checkId" :interval="interval" class="mt-4"></LogTable>
+                    </b-tab>
+                    <b-tab title="События">
+                        <br>События
+                    </b-tab>
+                </b-tabs>
             </b-col>
         </b-row>
     </div>

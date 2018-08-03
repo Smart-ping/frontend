@@ -39,6 +39,7 @@
 <script>
 
 import { calcInterval } from '~/utils/period'
+import api from '~/api'
 
 export default {
     props: {
@@ -75,7 +76,8 @@ export default {
             if (this.checkId == null)
                 return []
 
-            return this.$axios.get(`/data/checks/log/${this.checkId}`,{
+            return api.logs.fetch(this.$axios, {
+                id: this.checkId,
                 params: {
                     offset: (context.currentPage - 1) * context.perPage,
                     limit: context.perPage,
@@ -88,7 +90,8 @@ export default {
         },
         async setupRecCount() {
 
-            const res = await this.$axios.get(`/data/checks/log/${this.checkId}`,{
+            const res = await api.logs.fetch(this.$axios, {
+                id: this.checkId,
                 params: {
                     onlycount: true,
                     to: new Date(),

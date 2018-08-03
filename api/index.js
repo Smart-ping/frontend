@@ -10,5 +10,9 @@ export default {
         create: (axios, data) => axios.post('data/checks', data),
         log: (axios, data) => axios.get('data/checks/log/' + data.id),
         delete: (axios, data) => axios.delete('data/checks/' + data.id)
+    },
+    logs: {
+        fetch: (axios, data) => axios.get('/data/checks/log/' + data.id, { params: data.params })
     }
+
 }

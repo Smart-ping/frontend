@@ -6,6 +6,8 @@ import {
   intervalToAggregate,
   intervalToDisplayFormat
 } from "~/utils/period";
+import moment from 'moment'
+import api from '~/api'
 
 export default {
   extends: Line,
@@ -26,6 +28,7 @@ export default {
     }
   },
   async mounted() {
+    moment.locale('ru')
     try {
       this.renderChart(await this.getData(), this.getOptions());
     } catch (e) {}
@@ -52,11 +55,6 @@ export default {
               gridLines: {
                 display: false
               }
-              // ticks: {
-              //   callback(val) {
-              //       console.log('tick:', val)
-              //   }
-              // }
             }
           ],
           yAxes: [
@@ -80,7 +78,8 @@ export default {
 
       const from = calcInterval(this.interval);
 
-      const res = await this.$axios.get(`/data/checks/stat/${this.checkId}`, {
+      const res = await api.logs.fetch(this.$axios, {
+        id: this.checkId,
         params: {
           to: new Date(),
           from: from,
@@ -103,8 +102,6 @@ export default {
           y: Math.round(element.avg)
         });
       });
-
-      console.log(data);
 
       return {
         datasets: [

@@ -24,9 +24,7 @@ export function intervalToAggregate(interval) {
         case 'day':
             return 'hour'
         case 'week':
-            return 'day'
         case 'month':
-            return 'day'
         case 'halfyear':
         case 'year':
             return 'day'
@@ -43,10 +41,10 @@ export function intervalToDisplayFormat(interval)
         case 'week':
             return { day: 'dd' }
         case 'month':
-            return { day: 'D'}
+            return { day: 'DD.MM'}
         case 'halfyear':
-            return { month: 'M'}
+            return { day: 'DD.MM'}
         case 'year':
-            return { month: 'MM'}
+            return { day: 'DD.MM'}
     }
 }
