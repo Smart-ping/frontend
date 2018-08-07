@@ -13,7 +13,8 @@ export default {
     },
     logs: {
         fetch: (axios, data) => axios.get('/data/checks/log/' + data.id, { params: data.params }),
-        stat: (axios, data) => axios.get('/data/checks/stat/' + data.id, { params: data.params })
+        stat: (axios, data) => axios.get('/data/checks/stat/' + data.id, { params: data.params }),
+        event: (axios, data) => axios.get('/data/checks/evt/' + data.id, { params: data.params })
     }
 
 }

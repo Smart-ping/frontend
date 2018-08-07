@@ -42,11 +42,11 @@
         <b-row>
             <b-col>
                 <b-tabs class="mt-2">
-                    <b-tab title="Проверки" active>
-                        <LogTable :checkId="checkId" :interval="interval" class="mt-4"></LogTable>
+                    <b-tab title="События" active>
+                        <EventTable :checkId="checkId" :interval="interval" class="mt-4"></EventTable>
                     </b-tab>
-                    <b-tab title="События">
-                        <br>События
+                    <b-tab title="Проверки">
+                        <LogTable :checkId="checkId" :interval="interval" class="mt-4"></LogTable>
                     </b-tab>
                 </b-tabs>
             </b-col>
@@ -66,6 +66,7 @@
 <script>
 
 import LogTable from '~/components/LogTable'
+import EventTable from '~/components/EventTable'
 import LogCharts from '~/components/LogCharts'
 
 export default {
@@ -91,6 +92,7 @@ export default {
     },
     components: {
         LogTable,
+        EventTable,
         LogCharts
     }
 }
