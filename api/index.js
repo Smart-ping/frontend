@@ -12,7 +12,8 @@ export default {
         delete: (axios, data) => axios.delete('data/checks/' + data.id)
     },
     logs: {
-        fetch: (axios, data) => axios.get('/data/checks/log/' + data.id, { params: data.params })
+        fetch: (axios, data) => axios.get('/data/checks/log/' + data.id, { params: data.params }),
+        stat: (axios, data) => axios.get('/data/checks/stat/' + data.id, { params: data.params })
     }
 
 }

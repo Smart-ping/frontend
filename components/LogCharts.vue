@@ -78,7 +78,7 @@ export default {
 
       const from = calcInterval(this.interval);
 
-      const res = await api.logs.fetch(this.$axios, {
+      const res = await api.logs.stat(this.$axios, {
         id: this.checkId,
         params: {
           to: new Date(),
