@@ -53,7 +53,7 @@ export default {
                 max: new Date()
               },
               gridLines: {
-                display: false
+                display: true
               }
             }
           ],
@@ -63,7 +63,7 @@ export default {
                 beginAtZero: true
               },
               gridLines: {
-                display: false
+                display: true
               }
             }
           ]
@@ -108,8 +108,10 @@ export default {
           {
             label: "Среднее время запроса",
             backgroundColor: "#59ba83",
+            borderColor: "#59ba83",
+            borderWidth: 1,
             data: data,
-            lineTension: 0.2,
+            lineTension: 0,
             fill: false
           }
         ]
