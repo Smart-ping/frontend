@@ -32,6 +32,23 @@ export function intervalToAggregate(interval) {
     }
 }
 
+export function intervalToAggregateData(interval) {
+    switch(interval)
+    {
+        case 'day':
+            return 'minute'
+        case 'week':
+            return 'hour'
+        case 'month':
+            return 'hour'
+        case 'halfyear':
+        case 'year':
+            return 'day'
+            
+    }
+}
+
+
 export function intervalToDisplayFormat(interval)
 {
     switch(interval)

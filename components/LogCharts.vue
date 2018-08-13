@@ -4,13 +4,14 @@ import { Bar, Line } from "vue-chartjs";
 import {
   calcInterval,
   intervalToAggregate,
-  intervalToDisplayFormat
+  intervalToDisplayFormat,
+  intervalToAggregateData
 } from "~/utils/period";
 import moment from 'moment'
 import api from '~/api'
 
 export default {
-  extends: Line,
+  extends: Bar,
   props: {
     checkId: String,
     interval: String
@@ -46,8 +47,8 @@ export default {
             {
               type: "time",
               time: {
-                round: intervalToAggregate(this.interval),
-                unit: intervalToAggregate(this.interval),
+//                round: intervalToAggregate(this.interval),
+      //          unit: intervalToAggregate(this.interval),
                 displayFormats: intervalToDisplayFormat(this.interval),
                 min: calcInterval(this.interval),
                 max: new Date()
@@ -83,25 +84,27 @@ export default {
         params: {
           to: new Date(),
           from: from,
-          aggregate: intervalToAggregate(this.interval)
+          aggregate: intervalToAggregateData(this.interval)
         }
       });
 
       var data = [];
 
       res.data.data.forEach(element => {
+        if (element.avg > 0) {
         data.push({
           t: new Date(
             Date.UTC(
               element._id.year ? element._id.year : 0,
               element._id.month ? element._id.month - 1 : 0,
               element._id.day ? element._id.day : 0,
-              element._id.hour ? element._id.hour : 0
+              element._id.hour ? element._id.hour : 0,
+              element._id.minute ? element._id.minute : 0
             )
           ),
           y: Math.round(element.avg)
-        });
-      });
+        })
+        }})
 
       return {
         datasets: [
